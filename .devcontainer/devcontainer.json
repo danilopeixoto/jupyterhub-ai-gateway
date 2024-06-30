@@ -1,0 +1,32 @@
+{
+    "name": "jupyterhub-ai-gateway",
+    "build": {
+        "dockerfile": "Dockerfile"
+    },
+    "postCreateCommand": "conda env create -f environment.yaml && conda activate jupyterhub-ai-gateway",
+    "forwardPorts": [
+        8000,
+        8888
+    ],
+    "features": {
+        "ghcr.io/rocker-org/devcontainer-features/miniforge:1": {}
+    },
+    "customizations": {
+        "vscode": {
+            "settings": {
+                "editor.rulers": [
+                    80
+                ],
+                "editor.formatOnSave": true,
+                "editor.codeActionsOnSave": {
+                    "source.fixAll.eslint": true
+                },
+                "files.autoSave": "afterDelay"
+            },
+            "extensions": [
+                "editorconfig.editorconfig",
+                "dbaeumer.vscode-eslint"
+            ]
+        }
+    }
+}

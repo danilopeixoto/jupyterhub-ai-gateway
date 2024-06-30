@@ -1,0 +1,31 @@
+repos:
+  - repo: local
+    hooks:
+      - id: type-check
+        name: type-check
+        language: system
+        types:
+          - python
+        entry: mypy
+        require_serial: true
+      - id: sort-import
+        name: sort-import
+        language: system
+        types:
+          - python
+        entry: isort
+        require_serial: true
+      - id: format
+        name: format
+        language: system
+        types:
+          - python
+        entry: black
+        require_serial: true
+      - id: lint
+        name: lint
+        language: system
+        types:
+          - python
+        entry: pylint
+        require_serial: true

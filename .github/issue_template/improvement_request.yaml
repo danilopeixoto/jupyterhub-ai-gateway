@@ -1,0 +1,32 @@
+name: Improvement request
+description: Template for improvement requests.
+title: "Improvement request: "
+labels:
+  - improvement-request
+assignees:
+  - danilopeixoto
+body:
+  - type: textarea
+    id: description
+    attributes:
+        label: Description
+        description: |
+            Provide a clear and concise description of the improvement you would like to request.
+    validations:
+        required: true
+  - type: textarea
+    id: current-state
+    attributes:
+        label: Current state
+        description: |
+            Explain the current state of the feature or functionality that you believe needs improvement.
+    validations:
+        required: true
+  - type: textarea
+    id: suggested-changes
+    attributes:
+        label: Suggested changes
+        description: |
+            Describe the changes or enhancements you suggest to improve the current state.
+    validations:
+        required: true

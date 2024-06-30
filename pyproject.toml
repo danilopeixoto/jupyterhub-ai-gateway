@@ -1,0 +1,57 @@
+[project]
+name = "jupyterhub-ai-gateway"
+description = "AI gateway service for JupyterHub."
+readme = "README.md"
+authors = [
+    {name = "Danilo Peixoto Ferreira", email = "danilopeixoto@outlook.com"}
+]
+license = {file = "LICENSE.md"}
+keywords = [
+    "ai",
+    "gateway",
+    "jupyterhub",
+    "mlflow",
+    "service"
+]
+classifiers = [
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "License :: OSI Approved :: MIT License"
+]
+requires-python = ">=3.10.0"
+dynamic = [
+    "version",
+    "dependencies",
+    "optional-dependencies"
+]
+
+[project.urls]
+Homepage = "https://jupyterhub-ai-gateway.readthedocs.io"
+Documentation = "https://jupyterhub-ai-gateway.readthedocs.io"
+Repository = "https://github.com/danilopeixoto/jupyterhub-ai-gateway"
+Issues = "https://github.com/danilopeixoto/jupyterhub-ai-gateway/issues"
+Changelog = "https://jupyterhub-ai-gateway.readthedocs.io/en/latest/changelog.html"
+
+[project.scripts]
+jupyterhub-ai-gateway = "cli:main"
+
+[build-system]
+requires = [
+    "setuptools",
+    "setuptools_scm"
+]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools_scm]
+
+[tool.setuptools.dynamic]
+dependencies = {file = ["requirements.txt"]}
+optional-dependencies = {development = {file = ["requirements-development.txt"]}}
+
+[[tool.mypy.overrides]]
+module = "pygments.*"
+ignore_missing_imports = true
+
+[tool.isort]
+profile = "black"

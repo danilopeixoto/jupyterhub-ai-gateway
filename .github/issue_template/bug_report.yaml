@@ -1,0 +1,46 @@
+name: Bug report
+description: Template for bug reports.
+title: "Bug report: "
+labels:
+  - bug-report
+assignees:
+  - danilopeixoto
+body:
+  - type: textarea
+    id: description
+    attributes:
+        label: Description
+        description: |
+            Provide a concise description of the bug you have encountered.
+    validations:
+        required: true
+  - type: textarea
+    id: steps-to-reproduce
+    attributes:
+        label: Steps to reproduce
+        description: |
+            1. List the steps or actions required to reproduce the bug. Be as detailed as possible.
+            2. Include any specific input or configurations necessary.
+            3. If applicable, include screenshots or code snippets.
+    validations:
+        required: true
+  - type: textarea
+    id: expected-behavior
+    attributes:
+        label: Expected behavior
+        description: |
+            Explain what you expected to happen.
+    validations:
+        required: true
+  - type: textarea
+    id: system-information
+    attributes:
+        label: System information
+        description: |
+            Provide information about your system or environment where the bug occurred.
+
+            - Operating system version
+            - JupyterHub version
+            - JupyterHub AI Gateway version
+    validations:
+        required: true

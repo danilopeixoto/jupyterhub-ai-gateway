@@ -1,0 +1,12 @@
+.idea/
+.vs/
+.vscode/
+.eggs/
+*.egg-info/
+__pycache__/
+.mypy_cache/
+.pytest_cache/
+build/
+dist/
+*.rst
+config.yaml

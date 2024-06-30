@@ -1,0 +1,32 @@
+name: Feature request
+description: Template for feature requests.
+title: "Feature request: "
+labels:
+  - feature-request
+assignees:
+  - danilopeixoto
+body:
+  - type: textarea
+    id: description
+    attributes:
+        label: Description
+        description: |
+            Provide a clear and concise description of the feature you would like to request.
+    validations:
+        required: true
+  - type: textarea
+    id: use-case
+    attributes:
+        label: Use case
+        description: |
+            Explain the specific use case or scenario where this feature would be beneficial.
+    validations:
+        required: true
+  - type: textarea
+    id: proposed-solution
+    attributes:
+        label: Proposed solution
+        description: |
+            Describe your idea for implementing this feature. Be as detailed as possible.
+    validations:
+        required: true

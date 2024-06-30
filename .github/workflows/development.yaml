@@ -1,0 +1,38 @@
+name: development
+on:
+    push:
+        branches:
+          - main
+    pull_request:
+        branches:
+          - main
+    workflow_dispatch:
+jobs:
+    check-package-style:
+        runs-on: ubuntu-latest
+        environment: development
+        steps:
+          - name: setup-python
+            uses: actions/setup-python@v5
+            with:
+                python-version: "3.10"
+          - name: checkout-branch
+            uses: actions/checkout@v4
+          - name: install-package
+            run: pip install -e .[development]
+          - name: check-package-style
+            run: pre-commit run --all-files
+    test-package:
+        runs-on: ubuntu-latest
+        environment: development
+        steps:
+          - name: setup-python
+            uses: actions/setup-python@v5
+            with:
+                python-version: "3.10"
+          - name: checkout-branch
+            uses: actions/checkout@v4
+          - name: install-package
+            run: pip install -e .[development]
+          - name: test-package
+            run: pytest tests/

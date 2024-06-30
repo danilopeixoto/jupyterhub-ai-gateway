@@ -1,0 +1,14 @@
+jupyterhub>=4.0.0
+mypy
+isort
+black
+pylint
+pre-commit
+pytest
+sphinx
+sphinx-autobuild
+sphinx-book-theme
+sphinx-favicon
+myst-parser
+build
+twine
