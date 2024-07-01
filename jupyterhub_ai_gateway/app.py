@@ -2,12 +2,11 @@
 Service application module.
 """
 
-import os
-
 from fastapi import FastAPI
 
 from . import __version__
 from .routers import gateway, service
+from .settings import settings
 
 
 def create_app(config_path: str) -> FastAPI:
@@ -21,7 +20,7 @@ def create_app(config_path: str) -> FastAPI:
         FastAPI: The application.
     """
 
-    prefix = os.environ["JUPYTERHUB_SERVICE_PREFIX"]
+    prefix = settings.jupyterhub_service_prefix
 
     app = FastAPI(
         title="JupyterHub AI Gateway",
@@ -30,8 +29,8 @@ def create_app(config_path: str) -> FastAPI:
         openapi_url=f"{prefix}/openapi.json",
         docs_url=f"{prefix}/docs",
         redoc_url=f"{prefix}/redoc",
-        swagger_ui_init_oauth={"clientId": os.environ["JUPYTERHUB_CLIENT_ID"]},
-        swagger_ui_oauth2_redirect_url=os.environ["JUPYTERHUB_OAUTH_CALLBACK_URL"],
+        swagger_ui_init_oauth={"clientId": settings.jupyterhub_client_id},
+        swagger_ui_oauth2_redirect_url=settings.jupyterhub_oauth_callback_url,
     )
 
     service_router = service.create_router()

@@ -12,12 +12,8 @@ Set environment variables:
 
 ```console
 export OPENAI_API_KEY=<openai-api-key>
-export JUPYTERHUB_SERVICE_NAME=ai-gateway
-export JUPYTERHUB_SERVICE_PREFIX=/services/ai-gateway
 export JUPYTERHUB_API_URL=http://localhost:8000/hub/api
 export JUPYTERHUB_API_TOKEN=<service-api-token>
-export JUPYTERHUB_CLIENT_ID=service-ai-gateway
-export JUPYTERHUB_OAUTH_CALLBACK_URL=/services/ai-gateway/oauth_callback
 export JUPYTERHUB_PUBLIC_URL=http://localhost:5000
 export JUPYTERHUB_PUBLIC_HUB_URL=http://localhost:8000
 ```

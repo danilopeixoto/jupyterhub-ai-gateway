@@ -2,14 +2,13 @@
 Security module.
 """
 
-import os
-
 from fastapi import Depends, HTTPException, status
 from fastapi.security import OAuth2AuthorizationCodeBearer, SecurityScopes
 from fastapi.security.api_key import APIKeyQuery
 
 from .client import get_client
 from .models import User
+from .settings import settings
 
 
 async def get_current_user(
@@ -17,7 +16,7 @@ async def get_current_user(
     token_parameter: str = Depends(APIKeyQuery(name="token", auto_error=False)),
     authorization_header: str = Depends(
         OAuth2AuthorizationCodeBearer(
-            authorizationUrl=os.environ["JUPYTERHUB_PUBLIC_HUB_URL"]
+            authorizationUrl=settings.jupyterhub_public_hub_url
             + "/hub/api/oauth2/authorize",
             tokenUrl="get_token",
             auto_error=False,

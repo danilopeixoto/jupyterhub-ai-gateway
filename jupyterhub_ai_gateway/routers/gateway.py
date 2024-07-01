@@ -2,13 +2,12 @@
 Gateway router module.
 """
 
-import os
-
 from fastapi import APIRouter, Security
 from mlflow.deployments.server.app import create_app_from_path
 
 from ..constants import gateway_route_paths
 from ..security import get_current_user
+from ..settings import settings
 
 
 def create_router(config_path: str) -> APIRouter:
@@ -22,8 +21,10 @@ def create_router(config_path: str) -> APIRouter:
         APIRouter: The router.
     """
 
-    name = os.environ["JUPYTERHUB_SERVICE_NAME"]
-    scopes = ["access:services", f"access:services!service={name}"]
+    scopes = [
+        "access:services",
+        f"access:services!service={settings.jupyterhub_service_name}",
+    ]
 
     router = APIRouter(
         dependencies=[Security(get_current_user, scopes=scopes)],

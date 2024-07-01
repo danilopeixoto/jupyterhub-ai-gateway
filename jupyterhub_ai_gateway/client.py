@@ -2,9 +2,9 @@
 Hub client module.
 """
 
-import os
-
 import httpx
+
+from .settings import settings
 
 
 def get_client() -> httpx.AsyncClient:
@@ -15,8 +15,9 @@ def get_client() -> httpx.AsyncClient:
         httpx.AsyncClient: Asynchronous HTTP client.
     """
 
-    base_url = os.environ["JUPYTERHUB_API_URL"]
-    token = os.environ["JUPYTERHUB_API_TOKEN"]
+    base_url = settings.jupyterhub_api_url
+    token = settings.jupyterhub_api_token
+
     headers = {"Authorization": f"Bearer {token}"}
 
     return httpx.AsyncClient(base_url=base_url, headers=headers)

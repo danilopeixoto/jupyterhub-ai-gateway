@@ -2,14 +2,13 @@
 Service router module.
 """
 
-import os
-
 from fastapi import APIRouter, Form
 from fastapi.responses import JSONResponse
 
 from .. import __version__
 from ..client import get_client
 from ..models import HealthStatus
+from ..settings import settings
 
 
 def create_router() -> APIRouter:
@@ -48,14 +47,13 @@ def create_router() -> APIRouter:
         """
 
         redirect_uri = (
-            os.environ["JUPYTERHUB_PUBLIC_URL"]
-            + os.environ["JUPYTERHUB_OAUTH_CALLBACK_URL"]
+            settings.jupyterhub_public_url + settings.jupyterhub_oauth_callback_url
         )
 
         async with get_client() as client:
             data = {
-                "client_id": os.environ["JUPYTERHUB_CLIENT_ID"],
-                "client_secret": os.environ["JUPYTERHUB_API_TOKEN"],
+                "client_id": settings.jupyterhub_client_id,
+                "client_secret": settings.jupyterhub_api_token,
                 "grant_type": "authorization_code",
                 "code": code,
                 "redirect_uri": redirect_uri,

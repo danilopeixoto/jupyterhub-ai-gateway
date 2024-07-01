@@ -7,6 +7,7 @@ import argparse
 import uvicorn
 
 from .app import create_app
+from .settings import settings
 
 
 def main():
@@ -34,7 +35,7 @@ def main():
         "-c",
         "--config",
         type=str,
-        default="config.yaml",
+        default=settings.jupyterhub_ai_gateway_config,
         help="Path to configuration file. Defaults to config.yaml.",
     )
 
