@@ -5,21 +5,20 @@ Service router test module.
 from fastapi.testclient import TestClient
 
 import jupyterhub_ai_gateway
-from jupyterhub_ai_gateway.routers.service import create_router
 
 
-def test_get_status():
+def test_get_status(client: TestClient):
     """
     Test the health status endpoint.
+
+    Parameters:
+        client (TestClient): The gateway test client.
 
     Raises:
         AssertionError: If the response does not match the expected format.
     """
 
-    router = create_router()
-    client = TestClient(router)
-
-    response = client.get("/")
+    response = client.get("/services/ai-gateway")
     assert response.status_code == 200
 
     data = response.json()
