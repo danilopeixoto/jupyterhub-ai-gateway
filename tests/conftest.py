@@ -32,7 +32,7 @@ def config_path() -> str:
         str: The configuration path.
     """
 
-    path = os.path.join(os.path.dirname(__file__), "data", "config.yaml")
+    path = os.path.join(os.path.dirname(__file__), "data", "test-config.yaml")
     return path
 
 
