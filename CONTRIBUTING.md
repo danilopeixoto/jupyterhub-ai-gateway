@@ -41,5 +41,5 @@ pytest tests/
 Build and run documentation:
 
 ```console
-sphinx-autobuild docs/ docs/build/html/
+sphinx-autobuild --port 3000 docs/ docs/build/html/
 ```

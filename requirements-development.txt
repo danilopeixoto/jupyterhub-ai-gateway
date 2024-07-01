@@ -1,4 +1,3 @@
-jupyterhub>=4.0.0
 mypy
 isort
 black

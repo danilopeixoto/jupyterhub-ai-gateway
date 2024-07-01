@@ -8,5 +8,10 @@ __pycache__/
 .pytest_cache/
 build/
 dist/
+.DS_Store
 *.rst
+*.sqlite
+*.pid
 config.yaml
+jupyterhub_config.py
+jupyterhub_cookie_secret

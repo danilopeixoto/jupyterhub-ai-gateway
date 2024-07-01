@@ -54,7 +54,7 @@ html_theme = "sphinx_book_theme"
 html_theme_options = {
     "navigation_with_keys": False,
     "max_navbar_depth": 1,
-     "logo": {
+    "logo": {
         "text": html_title,
     },
     "use_fullscreen_button": False,

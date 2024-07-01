@@ -4,6 +4,8 @@
 
 AI gateway service for JupyterHub.
 
+![Service Overview](_static/images/overview.png)
+
 ## Prerequisites
 
 - [Python (>=3.10.0)](https://www.python.org)
