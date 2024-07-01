@@ -1,5 +1,9 @@
 # JupyterHub AI Gateway
 
+AI gateway service for JupyterHub.
+
+![Service Overview](_static/images/overview.png)
+
 ```{toctree}
 :maxdepth: 1
 :caption: Contents
