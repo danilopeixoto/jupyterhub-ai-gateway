@@ -2,7 +2,13 @@
 
 AI gateway service for JupyterHub.
 
-![Service Overview](_static/images/overview.png)
+```{figure} _static/images/overview-light.png
+:class: only-light
+```
+
+```{figure} _static/images/overview-dark.png
+:class: only-dark
+```
 
 ```{toctree}
 :maxdepth: 1
