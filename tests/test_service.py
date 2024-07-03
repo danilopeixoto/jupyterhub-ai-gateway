@@ -5,6 +5,7 @@ Service router test module.
 from fastapi.testclient import TestClient
 
 import jupyterhub_ai_gateway
+from jupyterhub_ai_gateway.settings import settings
 
 
 def test_get_status(client: TestClient):
@@ -18,7 +19,7 @@ def test_get_status(client: TestClient):
         AssertionError: If the response does not match the expected format.
     """
 
-    response = client.get("/services/ai-gateway")
+    response = client.get(settings.jupyterhub_service_prefix)
     assert response.status_code == 200
 
     data = response.json()

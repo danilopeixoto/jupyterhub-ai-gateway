@@ -11,6 +11,7 @@ from fastapi.testclient import TestClient
 from mlflow.gateway.schemas import completions
 
 from jupyterhub_ai_gateway.constants import gateway_route_paths
+from jupyterhub_ai_gateway.settings import settings
 
 
 def test_gateway_router(gateway_router: APIRouter):
@@ -49,7 +50,10 @@ def test_openai_completions_without_access_token(client: TestClient):
         "max_tokens": 64,
     }
 
-    response = client.post("/services/ai-gateway/v1/completions", json=data)
+    response = client.post(
+        f"{settings.jupyterhub_service_prefix}/v1/completions", json=data
+    )
+
     assert response.status_code == 401
 
 
@@ -82,8 +86,11 @@ def test_openai_completions_with_invalid_access_token(
     }
 
     response = client.post(
-        "/services/ai-gateway/v1/completions", headers=headers, json=data
+        f"{settings.jupyterhub_service_prefix}/v1/completions",
+        headers=headers,
+        json=data,
     )
+
     assert response.status_code == 400
 
 
@@ -133,8 +140,11 @@ def test_openai_completions_with_valid_access_token(
     }
 
     response = client.post(
-        "/services/ai-gateway/v1/completions", headers=headers, json=data
+        f"{settings.jupyterhub_service_prefix}/v1/completions",
+        headers=headers,
+        json=data,
     )
+
     assert response.status_code == 200
 
     data = response.json()

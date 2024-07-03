@@ -21,17 +21,19 @@ html[data-theme="dark"] {
     --pst-color-secondary: var(--pst-orange-300);
 }
 
+a, p,
+a:hover, p:hover {
+    text-decoration: unset !important;
+}
+
 .navbar-brand {
     flex-direction: row;
+    flex-wrap: wrap;
+    gap: 0.5rem;
 }
 
 .logo img {
     height: 2rem !important;
-}
-
-a, p,
-a:hover, p:hover {
-    text-decoration: unset !important;
 }
 
 nav.bd-links .current>a,
@@ -39,6 +41,19 @@ nav.bd-links .current>a,
 .theme-switch-button span:hover,
 .search-button:hover {
     box-shadow: unset !important;
+}
+
+.article-header-buttons {
+    align-items: center;
+}
+
+.pst-navbar-icon:hover:before {
+    border-bottom: none !important;
+}
+
+.pst-navbar-icon:hover, .bd-header-article .btn:hover {
+    color: var(--pst-color-text-base) !important;
+    text-decoration: none;
 }
 
 .bd-content img:not(.only-dark):not(.dark-light) {

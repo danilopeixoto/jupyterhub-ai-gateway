@@ -60,6 +60,24 @@ html_theme_options = {
     "use_fullscreen_button": False,
     "use_repository_button": True,
     "repository_url": "https://github.com/danilopeixoto/jupyterhub-ai-gateway",
+    "icon_links": [
+        {
+            "name": "PyPI",
+            "url": "https://pypi.org/project/jupyterhub-ai-gateway",
+            "icon": "fab fa-python",
+        },
+    ],
+    "article_header_end": [
+        "navbar-icon-links",
+        "article-header-buttons",
+    ],
+}
+html_sidebars = {
+    "**": [
+        "navbar-logo",
+        "search-button-field",
+        "sbt-sidebar-nav",
+    ],
 }
 
 favicons = [

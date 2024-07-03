@@ -43,3 +43,5 @@ Build and run documentation:
 ```console
 sphinx-autobuild --port 3000 docs/ docs/build/html/
 ```
+
+> **Note** See also the `Makefile` for development.
