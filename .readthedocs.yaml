@@ -2,9 +2,8 @@ version: 2
 build:
     os: ubuntu-lts-latest
     tools:
-        python: "3.10"
-python:
-    install:
-      - requirements: requirements-development.txt
+        python: mambaforge-latest
+conda:
+    environment: environment.yaml
 sphinx:
     configuration: docs/conf.py
