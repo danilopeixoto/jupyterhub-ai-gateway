@@ -101,37 +101,34 @@ The application will be available at `http://localhost:8000`.
 
 Users should be authorized to make requests to `http://localhost:5000/services/ai-gateway` service using the token issued for single-user servers.
 
-## Client
+## Single-user server
+
+Install dependencies:
+
+```console
+pip install openai
+```
 
 Send completion requests:
 
 ```python
-import asyncio
+import os
 
-import httpx
-
-
-async def main():
-    url = "http://localhost:5000/services/ai-gateway/v1/completions"
-    headers = {
-        "Authorization": "Bearer <token>",
-    }
-
-    data = {
-        "model": "completions", # endpoint name
-        "prompt": "The quick brown fox...",
-        "max_tokens": 64,
-    }
-
-    async with httpx.AsyncClient() as client:
-        response = await client.post(url, headers=headers, json=data)
-        response.raise_for_status()
-
-        print(response.json())
+from openai import OpenAI
 
 
-if __name__ == "__main__":
-   asyncio.run(main())
+client = OpenAI(
+    base_url="http://localhost:5000/services/ai-gateway/v1",
+    api_key=os.environ["JUPYTERHUB_API_TOKEN"],
+)
+
+completion = client.completions.create(
+    model="completions", # endpoint name
+    prompt="The quick brown fox...",
+    max_tokens=64,
+)
+
+print(completion.choices[0].text)
 ```
 
 > **Note** For a complete list of supported endpoints, access the service API documentation at `http://localhost:5000/services/ai-gateway/docs`.
