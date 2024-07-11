@@ -21,6 +21,7 @@ def create_router() -> APIRouter:
 
     router = APIRouter()
 
+    @router.get("/health")
     @router.get("/")
     async def get_status() -> HealthStatus:
         """
@@ -30,7 +31,7 @@ def create_router() -> APIRouter:
             HealthStatus: The service health status response.
         """
 
-        return HealthStatus(version=__version__)
+        return HealthStatus(status="OK", version=__version__)
 
     @router.post("/get_token", include_in_schema=False)
     async def get_token(code: str = Form(...)) -> JSONResponse:

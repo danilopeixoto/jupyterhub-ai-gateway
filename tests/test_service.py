@@ -24,5 +24,8 @@ def test_get_status(client: TestClient):
 
     data = response.json()
 
+    assert "status" in data
+    assert data["status"] == "OK"
+
     assert "version" in data
     assert data["version"] == jupyterhub_ai_gateway.__version__

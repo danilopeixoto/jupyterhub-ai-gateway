@@ -13,6 +13,7 @@ class HealthStatus(BaseModel):
     Health status response.
     """
 
+    status: str
     version: str
 
 

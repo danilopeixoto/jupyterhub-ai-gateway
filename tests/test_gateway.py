@@ -10,7 +10,7 @@ from fastapi import APIRouter
 from fastapi.testclient import TestClient
 from mlflow.gateway.schemas import completions
 
-from jupyterhub_ai_gateway.constants import gateway_route_paths
+from jupyterhub_ai_gateway.constants import gateway_routes
 from jupyterhub_ai_gateway.settings import settings
 
 
@@ -25,12 +25,16 @@ def test_gateway_router(gateway_router: APIRouter):
         AssertionError: If there are gateway routes that are not found in the router.
     """
 
-    gateway_paths = set(gateway_route_paths)
-    route_paths = set(route.path for route in gateway_router.routes)  # type: ignore
+    expected_routes = set(tuple(route.items()) for route in gateway_routes)
 
-    missing_paths = gateway_paths - route_paths
+    routes = set(
+        (("path", route.path), ("methods", tuple(route.methods)))  # type: ignore
+        for route in gateway_router.routes
+    )
 
-    assert len(missing_paths) == 0
+    missing_routes = expected_routes - routes
+
+    assert len(missing_routes) == 0
 
 
 def test_openai_completions_without_access_token(client: TestClient):
