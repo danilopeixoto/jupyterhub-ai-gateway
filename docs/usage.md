@@ -53,7 +53,7 @@ Start service:
 jupyterhub-ai-gateway --config config.yaml
 ```
 
-The service will be available at `http://localhost:5000/services/ai-gateway`.
+The service will be available at `http://localhost:5000`.
 
 ## Hub
 
@@ -64,7 +64,7 @@ c.JupyterHub.services = [
     {
         "name": "ai-gateway",
         "api_token": "<service-api-token>",
-        "oauth_redirect_uri": "http://localhost:5000/services/ai-gateway/oauth_callback",
+        "oauth_redirect_uri": "http://localhost:5000/oauth_callback",
         "display": False
     }
 ]
@@ -99,7 +99,7 @@ jupyterhub --config jupyterhub_config.py
 
 The application will be available at `http://localhost:8000`.
 
-Users should be authorized to make requests to `http://localhost:5000/services/ai-gateway` service using the token issued for single-user servers.
+Users should be authorized to make requests to `http://localhost:5000` service using the token issued for single-user servers.
 
 ## Single-user server
 
@@ -118,7 +118,7 @@ from openai import OpenAI
 
 
 client = OpenAI(
-    base_url="http://localhost:5000/services/ai-gateway/v1",
+    base_url="http://localhost:5000/v1",
     api_key=os.environ["JUPYTERHUB_API_TOKEN"],
 )
 
@@ -131,4 +131,4 @@ completion = client.completions.create(
 print(completion.choices[0].text)
 ```
 
-> **Note** For a complete list of supported endpoints, access the service API documentation at `http://localhost:5000/services/ai-gateway/docs`.
+> **Note** For a complete list of supported endpoints, access the service API documentation at `http://localhost:5000/docs`.
