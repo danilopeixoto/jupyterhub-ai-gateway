@@ -12,6 +12,7 @@ dist/
 *.rst
 *.sqlite
 *.pid
+openapi.json
 config.yaml
 jupyterhub_config.py
 jupyterhub_cookie_secret

@@ -1,0 +1,26 @@
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>REST API Reference — JupyterHub AI Gateway</title>
+        <link href="../_static/favicon.ico" rel="icon" type="image/x-icon">
+        <link rel="apple-touch-icon" href="../_static/apple-icon.png" sizes="180x180" type="image/png">
+        <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swagger-ui-dist@5.17.0/swagger-ui.css">
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/swagger-ui-dist@5.17.0/swagger-ui-bundle.js"></script>
+    </head>
+    <body>
+        <div id="openapi-ui"></div>
+        <script type="text/javascript">
+            const ui = SwaggerUIBundle({
+                url: "openapi.json",
+                dom_id: "#openapi-ui",
+                presets: [
+                    SwaggerUIBundle.presets.apis,
+                    SwaggerUIBundle.SwaggerUIStandalonePreset
+                ],
+                layout: "BaseLayout",
+                deepLinking: true,
+            });
+        </script>
+    </body>
+</html>

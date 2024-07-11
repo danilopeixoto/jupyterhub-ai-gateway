@@ -14,15 +14,6 @@ from jupyterhub_ai_gateway.app import create_app
 from jupyterhub_ai_gateway.routers.gateway import create_router
 
 
-@pytest.fixture(scope="session", autouse=True)
-def environment():
-    """
-    Set environment variables.
-    """
-
-    os.environ["OPENAI_API_KEY"] = "<openai-api-key>"
-
-
 @pytest.fixture
 def config_path() -> str:
     """

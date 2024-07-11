@@ -2,7 +2,10 @@ DOCS_DIR = docs/
 DOCS_BUILD_DIR = docs/build/html/
 DOCS_PORT = 3000
 
-.PHONY: docs clean-docs check-style help
+.PHONY: test docs clean-docs check-style help
+
+test: ## Run tests.
+	pytest
 
 docs: ## Build and serve the documentation.
 	sphinx-autobuild --port $(DOCS_PORT) $(DOCS_DIR) $(DOCS_BUILD_DIR)
