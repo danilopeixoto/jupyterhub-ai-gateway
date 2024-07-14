@@ -3,6 +3,9 @@ build:
     os: ubuntu-lts-latest
     tools:
         python: mambaforge-latest
+    jobs:
+        pre_build:
+          - git status
 conda:
     environment: environment.yaml
 sphinx:
