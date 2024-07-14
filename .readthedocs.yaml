@@ -4,8 +4,8 @@ build:
     tools:
         python: mambaforge-latest
     jobs:
-        pre_build:
-          - cat environment.yaml
+        pre_install:
+          - git update-index --assume-unchanged environment.yaml docs/conf.py
 conda:
     environment: environment.yaml
 sphinx:
