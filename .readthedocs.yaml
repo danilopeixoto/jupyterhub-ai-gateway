@@ -5,7 +5,7 @@ build:
         python: mambaforge-latest
     jobs:
         pre_build:
-          - git status
+          - cat environment.yaml
 conda:
     environment: environment.yaml
 sphinx:
