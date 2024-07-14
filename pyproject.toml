@@ -31,7 +31,7 @@ Homepage = "https://jupyterhub-ai-gateway.readthedocs.io"
 Documentation = "https://jupyterhub-ai-gateway.readthedocs.io"
 Repository = "https://github.com/danilopeixoto/jupyterhub-ai-gateway"
 Issues = "https://github.com/danilopeixoto/jupyterhub-ai-gateway/issues"
-Changelog = "https://jupyterhub-ai-gateway.readthedocs.io/en/latest/changelog.html"
+Changelog = "https://jupyterhub-ai-gateway.readthedocs.io/en/stable/changelog.html"
 
 [project.scripts]
 jupyterhub-ai-gateway = "jupyterhub_ai_gateway.cli:main"
