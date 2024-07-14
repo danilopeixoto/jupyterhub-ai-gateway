@@ -6,6 +6,8 @@ build:
     jobs:
         pre_install:
           - git update-index --assume-unchanged environment.yaml docs/conf.py
+        pre_build:
+          - git status
 conda:
     environment: environment.yaml
 sphinx:
