@@ -4,7 +4,7 @@ build:
     tools:
         python: mambaforge-latest
     jobs:
-        pre_environment:
+        pre_create_environment:
           - git update-index --assume-unchanged environment.yaml docs/conf.py
 conda:
     environment: environment.yaml
