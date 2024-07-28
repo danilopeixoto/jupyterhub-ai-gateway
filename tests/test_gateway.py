@@ -8,7 +8,7 @@ from unittest.mock import AsyncMock, patch
 import httpx
 from fastapi import APIRouter
 from fastapi.testclient import TestClient
-from mlflow.gateway.schemas import completions
+from mlflow.gateway.schemas import chat, completions
 
 from jupyterhub_ai_gateway.constants import gateway_routes
 from jupyterhub_ai_gateway.settings import settings
@@ -104,7 +104,11 @@ def test_openai_completions_with_invalid_access_token(
     return_value=httpx.Response(
         200,
         request=httpx.Request("GET", "url"),
-        json={"name": "user", "admin": False, "scopes": ["access:services"]},
+        json={
+            "name": "user",
+            "admin": False,
+            "scopes": ["custom:ai-gateway:full-access"],
+        },
     ),
 )
 def test_openai_completions_with_valid_access_token(
@@ -151,7 +155,81 @@ def test_openai_completions_with_valid_access_token(
 
     assert response.status_code == 200
 
-    data = response.json()
+    json_data = response.json()
 
-    assert "model" in data
-    assert data["model"] == "completions"
+    assert "model" in json_data
+    assert json_data["model"] == "completions"
+
+
+@patch("mlflow.deployments.server.app.get_provider")
+@patch(
+    "jupyterhub_ai_gateway.client.httpx.AsyncClient.get",
+    return_value=httpx.Response(
+        200,
+        request=httpx.Request("GET", "url"),
+        json={
+            "name": "user",
+            "admin": False,
+            "scopes": ["custom:ai-gateway:full-access"],
+        },
+    ),
+)
+def test_openai_rate_limit(
+    get_mock: Any,  # pylint: disable=unused-argument
+    get_provider_mock: Any,
+    client: TestClient,
+):
+    """
+    Test OpenAI endpoint with rate limit.
+
+    Parameters:
+        get_mock (Any): Mock object.
+        get_provider (Any): Mock object.
+        client (TestClient): The gateway router test client.
+
+    Raises:
+        AssertionError: If rate limit is not applied.
+    """
+
+    provider_mock = AsyncMock()
+    provider_mock.chat.return_value = chat.ResponsePayload(
+        model="chat",
+        created=0,
+        choices=[],
+        usage=chat.ChatUsage(),
+    )
+    get_provider_mock.return_value = lambda route: provider_mock
+
+    headers = {
+        "Authorization": "Bearer <valid-token>",
+    }
+
+    data = {
+        "model": "chat",
+        "messages": [
+            {
+                "role": "user",
+                "content": "The quick brown fox...",
+            },
+        ],
+        "max_tokens": 64,
+    }
+
+    limit = 2
+
+    for i in range(limit + 1):
+        response = client.post(
+            f"{settings.jupyterhub_service_prefix}/v1/chat/completions",
+            headers=headers,
+            json=data,
+        )
+
+        if i < limit:
+            assert response.status_code == 200
+
+            json_data = response.json()
+
+            assert "model" in json_data
+            assert json_data["model"] == "chat"
+        else:
+            assert response.status_code == 200  # TODO(429)

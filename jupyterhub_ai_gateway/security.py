@@ -2,7 +2,7 @@
 Security module.
 """
 
-from fastapi import Depends, HTTPException, status
+from fastapi import Depends, HTTPException, Request, status
 from fastapi.security import OAuth2AuthorizationCodeBearer, SecurityScopes
 from fastapi.security.api_key import APIKeyQuery
 
@@ -13,6 +13,7 @@ from .settings import settings
 
 async def get_current_user(
     security_scopes: SecurityScopes,
+    request: Request,
     token_parameter: str = Depends(APIKeyQuery(name="token", auto_error=False)),
     authorization_header: str = Depends(
         OAuth2AuthorizationCodeBearer(
@@ -28,6 +29,7 @@ async def get_current_user(
 
     Args:
         security_scopes (SecurityScopes): Scopes required for accessing the resource.
+        request (Request): The incoming request object.
         token_parameter (str): Token provided as a query parameter.
         authorization_header (str): Token provided in the authorization header.
 
@@ -64,6 +66,7 @@ async def get_current_user(
             )
 
     user = User(**response.json())
+    request.state.user_id = user.name
 
     if any(scope in user.scopes for scope in security_scopes.scopes):
         return user

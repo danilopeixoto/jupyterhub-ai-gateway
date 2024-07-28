@@ -29,6 +29,9 @@ endpoints:
         name: gpt-4-turbo
         config:
             openai_api_key: $OPENAI_API_KEY
+    limit:
+        renewal_period: minute
+        calls: 10
   - name: chat
     endpoint_type: llm/v1/chat
     model:
@@ -36,6 +39,9 @@ endpoints:
         name: gpt-4-turbo
         config:
             openai_api_key: $OPENAI_API_KEY
+    limit:
+        renewal_period: minute
+        calls: 10
   - name: embeddings
     endpoint_type: llm/v1/embeddings
     model:
@@ -43,6 +49,9 @@ endpoints:
         name: text-embedding-ada-002
         config:
             openai_api_key: $OPENAI_API_KEY
+    limit:
+        renewal_period: minute
+        calls: 10
 ```
 
 > **Note** For a complete list of supported providers, visit the [MLflow Deployments Server](https://mlflow.org/docs/latest/llms/deployments/index.html#supported-provider-models) documentation.
@@ -65,9 +74,19 @@ c.JupyterHub.services = [
         "name": "ai-gateway",
         "api_token": "<service-api-token>",
         "oauth_redirect_uri": "http://localhost:5000/oauth_callback",
-        "display": False
+        "oauth_client_allowed_scopes": [
+            "access:services!service=ai-gateway",
+            "custom:ai-gateway:full-access",
+        ],
+        "display": False,
     }
 ]
+
+c.JupyterHub.custom_scopes = {
+    "custom:ai-gateway:full-access": {
+        "description": "Full access to AI gateway service.",
+    },
+}
 
 c.JupyterHub.load_roles = [
     {
@@ -75,6 +94,7 @@ c.JupyterHub.load_roles = [
         "scopes": [
             "self",
             "access:services!service=ai-gateway",
+            "custom:ai-gateway:full-access",
         ]
     },
     {
@@ -83,6 +103,7 @@ c.JupyterHub.load_roles = [
             "users:activity!user",
             "access:servers!server",
             "access:services!service=ai-gateway",
+            "custom:ai-gateway:full-access",
         ]
     },
 ]

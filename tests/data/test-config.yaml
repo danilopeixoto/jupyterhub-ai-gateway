@@ -6,6 +6,9 @@ endpoints:
         name: gpt-4-turbo
         config:
             openai_api_key: <openai-api-key>
+    limit:
+        renewal_period: minute
+        calls: 2
   - name: chat
     endpoint_type: llm/v1/chat
     model:
@@ -13,6 +16,9 @@ endpoints:
         name: gpt-4-turbo
         config:
             openai_api_key: <openai-api-key>
+    limit:
+        renewal_period: minute
+        calls: 2
   - name: embeddings
     endpoint_type: llm/v1/embeddings
     model:
@@ -20,3 +26,6 @@ endpoints:
         name: text-embedding-ada-002
         config:
             openai_api_key: <openai-api-key>
+    limit:
+        renewal_period: minute
+        calls: 2
