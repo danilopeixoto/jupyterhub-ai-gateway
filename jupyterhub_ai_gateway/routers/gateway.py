@@ -11,7 +11,7 @@ from mlflow.deployments.server.app import (
 
 from ..constants import gateway_routes
 from ..security import get_current_user
-from ..utils import get_rate_limit_key
+from ..utils import get_rate_limit_key, match_path
 
 
 def create_router(config_path: str) -> APIRouter:
@@ -38,19 +38,16 @@ def create_router(config_path: str) -> APIRouter:
     app.state.limiter = limiter
     app.set_dynamic_routes(config, limiter)
 
-    routes = {
-        (("path", route.path), ("methods", tuple(route.methods))): route
-        for route in app.routes
-    }
-
     for gateway_route in gateway_routes:
-        route = routes.get(tuple(gateway_route.items()))  # type: ignore
+        for route in app.routes:
+            matches_path = match_path(gateway_route["path"], route.path)  # type: ignore
+            matches_methods = gateway_route["methods"] == tuple(route.methods)  # type: ignore
 
-        if route is not None:
-            router.add_api_route(
-                route.path,
-                route.endpoint,
-                methods=route.methods,
-            )
+            if matches_path and matches_methods:
+                router.add_api_route(
+                    route.path,
+                    route.endpoint,
+                    methods=route.methods,
+                )
 
     return router

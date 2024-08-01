@@ -10,7 +10,6 @@ from fastapi import APIRouter
 from fastapi.testclient import TestClient
 from mlflow.gateway.schemas import chat, completions
 
-from jupyterhub_ai_gateway.constants import gateway_routes
 from jupyterhub_ai_gateway.settings import settings
 
 
@@ -25,16 +24,34 @@ def test_gateway_router(gateway_router: APIRouter):
         AssertionError: If there are gateway routes that are not found in the router.
     """
 
-    expected_routes = set(tuple(route.items()) for route in gateway_routes)
+    expected_routes = [
+        {"path": "/api/2.0/endpoints/{endpoint_name}", "methods": ("GET",)},
+        {"path": "/api/2.0/endpoints/", "methods": ("GET",)},
+        {"path": "/api/2.0/gateway/routes/{route_name}", "methods": ("GET",)},
+        {"path": "/api/2.0/gateway/routes/", "methods": ("GET",)},
+        {"path": "/endpoints/completions/invocations", "methods": ("POST",)},
+        {"path": "/endpoints/chat/invocations", "methods": ("POST",)},
+        {"path": "/endpoints/embeddings/invocations", "methods": ("POST",)},
+        {"path": "/endpoints/completions/invocations", "methods": ("POST",)},
+        {"path": "/endpoints/chat/invocations", "methods": ("POST",)},
+        {"path": "/endpoints/embeddings/invocations", "methods": ("POST",)},
+        {"path": "/gateway/completions/invocations", "methods": ("POST",)},
+        {"path": "/gateway/chat/invocations", "methods": ("POST",)},
+        {"path": "/gateway/embeddings/invocations", "methods": ("POST",)},
+        {"path": "/gateway/completions/invocations", "methods": ("POST",)},
+        {"path": "/gateway/chat/invocations", "methods": ("POST",)},
+        {"path": "/gateway/embeddings/invocations", "methods": ("POST",)},
+        {"path": "/v1/completions", "methods": ("POST",)},
+        {"path": "/v1/chat/completions", "methods": ("POST",)},
+        {"path": "/v1/embeddings", "methods": ("POST",)},
+    ]
 
-    routes = set(
-        (("path", route.path), ("methods", tuple(route.methods)))  # type: ignore
+    routes = [
+        {"path": route.path, "methods": tuple(route.methods)}  # type: ignore
         for route in gateway_router.routes
-    )
+    ]
 
-    missing_routes = expected_routes - routes
-
-    assert len(missing_routes) == 0
+    assert routes == expected_routes
 
 
 def test_openai_completions_without_access_token(client: TestClient):
