@@ -3,7 +3,10 @@ Service router module.
 """
 
 from fastapi import APIRouter, Form
-from fastapi.openapi.docs import get_swagger_ui_html
+from fastapi.openapi.docs import (
+    get_swagger_ui_html,
+    get_swagger_ui_oauth2_redirect_html,
+)
 from fastapi.responses import HTMLResponse, JSONResponse
 
 from .. import __version__
@@ -37,6 +40,17 @@ def create_router() -> APIRouter:
             init_oauth={"clientId": settings.jupyterhub_client_id},
             oauth2_redirect_url=settings.jupyterhub_oauth_callback_url,
         )
+
+    @router.get(settings.jupyterhub_oauth_callback_url, include_in_schema=False)
+    async def oauth_callback() -> HTMLResponse:
+        """
+        Handles the OAuth callback.
+
+        Returns:
+            HTMLResponse: The OAuth redirect HTML response.
+        """
+
+        return get_swagger_ui_oauth2_redirect_html()
 
     @router.get("/health")
     async def get_status() -> HealthStatus:
