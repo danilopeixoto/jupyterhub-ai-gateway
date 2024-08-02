@@ -19,7 +19,7 @@ def test_get_status(client: TestClient):
         AssertionError: If the response does not match the expected format.
     """
 
-    response = client.get(settings.jupyterhub_service_prefix)
+    response = client.get(f"{settings.jupyterhub_service_prefix}/health")
     assert response.status_code == 200
 
     data = response.json()

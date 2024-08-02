@@ -3,7 +3,8 @@ Service router module.
 """
 
 from fastapi import APIRouter, Form
-from fastapi.responses import JSONResponse
+from fastapi.openapi.docs import get_swagger_ui_html
+from fastapi.responses import HTMLResponse, JSONResponse
 
 from .. import __version__
 from ..client import get_client
@@ -21,8 +22,23 @@ def create_router() -> APIRouter:
 
     router = APIRouter()
 
+    @router.get("/", include_in_schema=False)
+    async def get_docs() -> HTMLResponse:
+        """
+        Get service documentation.
+
+        Returns:
+            HTMLResponse: The documentation HTML response.
+        """
+
+        return get_swagger_ui_html(
+            openapi_url="openapi.json",
+            title=settings.jupyterhub_ai_gateway_docs_title,
+            init_oauth={"clientId": settings.jupyterhub_client_id},
+            oauth2_redirect_url=settings.jupyterhub_oauth_callback_url,
+        )
+
     @router.get("/health")
-    @router.get("/")
     async def get_status() -> HealthStatus:
         """
         Get service health status.

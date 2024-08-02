@@ -10,6 +10,8 @@ class Settings(BaseSettings):
     Settings model.
     """
 
+    jupyterhub_ai_gateway_docs_title: str = "JupyterHub AI Gateway"
+    jupyterhub_ai_gateway_docs_description: str = "AI gateway service for JupyterHub."
     jupyterhub_ai_gateway_config: str = "config.yaml"
     jupyterhub_service_name: str = "ai-gateway"
     jupyterhub_service_prefix: str = ""
