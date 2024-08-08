@@ -67,7 +67,7 @@ def create_router(enable_metrics: bool) -> APIRouter:
 
         return HealthStatus(status="OK", version=__version__)
 
-    @router.get("/metrics")
+    @router.get("/metrics", include_in_schema=False)
     async def get_metrics() -> Response:
         """
         Get server metrics.
