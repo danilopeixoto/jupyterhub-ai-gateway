@@ -29,3 +29,30 @@ def test_get_status(client: TestClient):
 
     assert "version" in data
     assert data["version"] == jupyterhub_ai_gateway.__version__
+
+
+def test_get_metrics(client: TestClient):
+    """
+    Test the metrics endpoint.
+
+    Parameters:
+        client (TestClient): The gateway test client.
+
+    Raises:
+        AssertionError: If the response does not match the expected format.
+    """
+
+    expected_metrics = [
+        "http_requests_total",
+        "http_request_duration_seconds",
+        "http_request_size_bytes",
+        "http_response_size_bytes",
+    ]
+
+    response = client.get(f"{settings.jupyterhub_service_prefix}/metrics")
+    assert response.status_code == 200
+
+    data = response.text
+
+    for metric in expected_metrics:
+        assert metric in data

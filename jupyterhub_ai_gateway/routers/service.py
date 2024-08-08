@@ -7,7 +7,8 @@ from fastapi.openapi.docs import (
     get_swagger_ui_html,
     get_swagger_ui_oauth2_redirect_html,
 )
-from fastapi.responses import HTMLResponse, JSONResponse
+from fastapi.responses import HTMLResponse, JSONResponse, Response
+from prometheus_client import CONTENT_TYPE_LATEST, generate_latest
 
 from .. import __version__
 from ..client import get_client
@@ -15,9 +16,12 @@ from ..models import HealthStatus
 from ..settings import settings
 
 
-def create_router() -> APIRouter:
+def create_router(enable_metrics: bool) -> APIRouter:
     """
     Create service router.
+
+    Parameters:
+        enable_metrics (bool): Enable server metrics.
 
     Returns:
         APIRouter: The router.
@@ -62,6 +66,21 @@ def create_router() -> APIRouter:
         """
 
         return HealthStatus(status="OK", version=__version__)
+
+    @router.get("/metrics")
+    async def get_metrics() -> Response:
+        """
+        Get server metrics.
+
+        Returns:
+            Response: The server metrics response if metrics are enabled.
+                      Otherwise, returns a NotFound (404) response.
+        """
+
+        if enable_metrics:
+            return Response(generate_latest(), media_type=CONTENT_TYPE_LATEST)
+
+        return Response(content="Metrics are not enabled.", status_code=404)
 
     @router.post("/get_token", include_in_schema=False)
     async def get_token(code: str = Form(...)) -> JSONResponse:

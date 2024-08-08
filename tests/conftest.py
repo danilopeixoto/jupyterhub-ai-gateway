@@ -55,5 +55,5 @@ def client(config_path: str) -> TestClient:
         TestClient: The test client.
     """
 
-    app = create_app(config_path)
+    app = create_app(config_path, enable_metrics=True)
     return TestClient(app)

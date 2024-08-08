@@ -38,9 +38,16 @@ def main():
         default=settings.jupyterhub_ai_gateway_config,
         help="Path to configuration file. Defaults to config.yaml.",
     )
+    parser.add_argument(
+        "-m",
+        "--metrics",
+        action="store_true",
+        default=settings.jupyterhub_ai_gateway_metrics,
+        help="Enable server metrics. Defaults to false.",
+    )
 
     args = parser.parse_args()
-    app = create_app(args.config)
+    app = create_app(args.config, args.metrics)
 
     uvicorn.run(app, host=args.host, port=args.port)
 

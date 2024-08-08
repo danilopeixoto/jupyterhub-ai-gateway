@@ -5,3 +5,4 @@ pydantic
 pydantic-settings
 httpx
 mlflow[genai]
+prometheus_client
