@@ -4,8 +4,11 @@ Metric definitions module.
 
 from prometheus_client import Counter, Histogram, Summary
 
+from ..settings import settings
+
 #: Total number of HTTP requests.
 http_requests_total = Counter(
+    namespace=settings.jupyterhub_ai_gateway_metrics_namespace,
     name="http_requests_total",
     documentation="Total number of HTTP requests.",
     labelnames=["endpoint", "method", "status"],
@@ -13,6 +16,7 @@ http_requests_total = Counter(
 
 #: HTTP request duration in seconds (latency).
 http_request_duration = Histogram(
+    namespace=settings.jupyterhub_ai_gateway_metrics_namespace,
     name="http_request_duration",
     documentation="HTTP request duration in seconds (latency).",
     labelnames=["endpoint", "method"],
@@ -41,6 +45,7 @@ http_request_duration = Histogram(
 
 #: HTTP request size in bytes.
 http_request_size = Summary(
+    namespace=settings.jupyterhub_ai_gateway_metrics_namespace,
     name="http_request_size",
     documentation="HTTP request size in bytes.",
     labelnames=["endpoint", "method"],
@@ -49,6 +54,7 @@ http_request_size = Summary(
 
 #: HTTP response size in bytes.
 http_response_size = Summary(
+    namespace=settings.jupyterhub_ai_gateway_metrics_namespace,
     name="http_response_size",
     documentation="HTTP response size in bytes.",
     labelnames=["endpoint", "method"],

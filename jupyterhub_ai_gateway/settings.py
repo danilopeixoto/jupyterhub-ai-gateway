@@ -14,6 +14,7 @@ class Settings(BaseSettings):
     jupyterhub_ai_gateway_docs_description: str = "AI gateway service for JupyterHub."
     jupyterhub_ai_gateway_config: str = "config.yaml"
     jupyterhub_ai_gateway_metrics: bool = False
+    jupyterhub_ai_gateway_metrics_namespace: str = "jupyterhub_ai_gateway"
     jupyterhub_service_name: str = "ai-gateway"
     jupyterhub_service_prefix: str = ""
     jupyterhub_api_url: str = "http://localhost:8000/hub/api"
