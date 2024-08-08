@@ -1,29 +1,36 @@
+"""
+Metrics middleware module.
+"""
+
 import logging
 from timeit import default_timer
-from typing import Callable, List
+from typing import Callable, List, Optional
+
 from fastapi import Request, Response
 
 from .metrics import (
-    http_requests_total,
     http_request_duration,
     http_request_size,
+    http_requests_total,
     http_response_size,
 )
-
 
 logger = logging.getLogger(__name__)
 
 
-def make_metrics_middleware(exclude_paths: List[str] = []) -> Callable:
+def make_metrics_middleware(exclude_paths: Optional[List[str]] = None) -> Callable:
     """
     Create metrics middleware.
 
     Parameters:
-        exclude_paths (List[str]): List of endpoint paths to exclude. Defaults to `[]`.
+        exclude_paths (Optional[List[str]]): List of endpoint paths to exclude. Defaults to none.
 
     Returns:
         Callable: The middleware.
     """
+
+    if exclude_paths is None:
+        exclude_paths = []
 
     async def metrics_middleware(request: Request, call_next: Callable) -> Response:
         """
@@ -74,7 +81,7 @@ def make_metrics_middleware(exclude_paths: List[str] = []) -> Callable:
                 endpoint=endpoint,
                 method=method,
             ).observe(response_size)
-        except Exception:
+        except Exception:  # pylint: disable=broad-exception-caught
             logger.exception("Could not log metrics.")
 
         return response

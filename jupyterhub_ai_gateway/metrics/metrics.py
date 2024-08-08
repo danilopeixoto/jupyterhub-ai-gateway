@@ -1,5 +1,8 @@
-from prometheus_client import Counter, Histogram, Summary
+"""
+Metric definitions module.
+"""
 
+from prometheus_client import Counter, Histogram, Summary
 
 #: Total number of HTTP requests.
 http_requests_total = Counter(
@@ -33,7 +36,7 @@ http_request_duration = Histogram(
         40.0,
         50.0,
         60.0,
-    ]
+    ],
 )
 
 #: HTTP request size in bytes.
