@@ -85,6 +85,7 @@ html_title = "JupyterHub AI Gateway"
 html_logo = "_static/images/logo.svg"
 html_static_path = ["_static/", "_static/images/"]
 html_css_files = ["styles/custom.css"]
+author = ""
 copyright = "2024, JupyterHub AI Gateway Developers. All rights reserved"
 
 html_theme = "sphinx_book_theme"

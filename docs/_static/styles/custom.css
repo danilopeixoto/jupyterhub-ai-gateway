@@ -41,13 +41,6 @@ figure {
     height: 2rem !important;
 }
 
-nav.bd-links .current>a,
-.toc-entry a.nav-link.active,
-.theme-switch-button span:hover,
-.search-button:hover {
-    box-shadow: unset !important;
-}
-
 .article-header-buttons {
     align-items: center;
 }
@@ -74,4 +67,10 @@ footer.bd-footer-content {
     align-items: start;
     display: flex;
     gap: .5rem;
+}
+
+@media only screen and (min-width: 960px) {
+    .header-article__inner .header-article-items__start {
+        display: none;
+    }
 }
