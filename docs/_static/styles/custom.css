@@ -69,22 +69,9 @@ footer.bd-footer-content {
     border-top-color: var(--pst-color-border);
 }
 
-.search-button-field:hover {
-    border: 1px solid var(--bs-btn-hover-border-color) !important;
-    outline: 2px solid var(--pst-color-link-hover);
-}
-
-.bd-search {
-    padding: 0;
-    border-radius: var(--bs-border-radius);
-}
-
-.bd-search > input {
-    padding-left: 2em !important;
-    border: unset;
-}
-
-.bd-search > svg {
-    position: absolute;
-    left: 0.5rem;
+.header-article__inner .header-article-items__end,
+.header-article__inner .header-article-items__start {
+    align-items: start;
+    display: flex;
+    gap: .5rem;
 }
