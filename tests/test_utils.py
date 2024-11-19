@@ -16,13 +16,12 @@ from jupyterhub_ai_gateway.utils import match_path
             True,
         ),
         ("/api/2.0/endpoints/", "/api/2.0/endpoints/", True),
-        ("/api/2.0/gateway/routes/", "/api/2.0/gateway/routes/", True),
-        ("/endpoints/*/call", "/endpoints/chat/invocations", False),
         (
-            "/api/2.0/gateway/routes/{name}",
-            "/api/2.0/gateway/routes/{route_name}",
+            "/api/2.0/endpoints/{name}",
+            "/api/2.0/endpoints/{route_name}",
             False,
         ),
+        ("/endpoints/*/call", "/endpoints/chat/invocations", False),
     ],
 )
 def test_match_path(pattern: str, path: str, expected: bool):

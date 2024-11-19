@@ -54,7 +54,7 @@ endpoints:
         calls: 10
 ```
 
-> **Note** For a complete list of supported providers, visit the [MLflow Deployments Server](https://mlflow.org/docs/latest/llms/deployments/index.html#supported-provider-models) documentation.
+> **Note** For a complete list of supported providers, visit the [MLflow AI Gateway](https://mlflow.org/docs/latest/llms/deployments/index.html#supported-provider-models) documentation.
 
 Start service:
 

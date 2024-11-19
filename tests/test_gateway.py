@@ -27,20 +27,12 @@ def test_gateway_router(gateway_router: APIRouter):
     expected_routes = [
         {"path": "/api/2.0/endpoints/{endpoint_name}", "methods": ("GET",)},
         {"path": "/api/2.0/endpoints/", "methods": ("GET",)},
-        {"path": "/api/2.0/gateway/routes/{route_name}", "methods": ("GET",)},
-        {"path": "/api/2.0/gateway/routes/", "methods": ("GET",)},
         {"path": "/endpoints/completions/invocations", "methods": ("POST",)},
         {"path": "/endpoints/chat/invocations", "methods": ("POST",)},
         {"path": "/endpoints/embeddings/invocations", "methods": ("POST",)},
         {"path": "/endpoints/completions/invocations", "methods": ("POST",)},
         {"path": "/endpoints/chat/invocations", "methods": ("POST",)},
         {"path": "/endpoints/embeddings/invocations", "methods": ("POST",)},
-        {"path": "/gateway/completions/invocations", "methods": ("POST",)},
-        {"path": "/gateway/chat/invocations", "methods": ("POST",)},
-        {"path": "/gateway/embeddings/invocations", "methods": ("POST",)},
-        {"path": "/gateway/completions/invocations", "methods": ("POST",)},
-        {"path": "/gateway/chat/invocations", "methods": ("POST",)},
-        {"path": "/gateway/embeddings/invocations", "methods": ("POST",)},
         {"path": "/v1/completions", "methods": ("POST",)},
         {"path": "/v1/chat/completions", "methods": ("POST",)},
         {"path": "/v1/embeddings", "methods": ("POST",)},
@@ -115,7 +107,7 @@ def test_openai_completions_with_invalid_access_token(
     assert response.status_code == 400
 
 
-@patch("mlflow.deployments.server.app.get_provider")
+@patch("mlflow.gateway.app.get_provider")
 @patch(
     "jupyterhub_ai_gateway.client.httpx.AsyncClient.get",
     return_value=httpx.Response(
@@ -178,7 +170,7 @@ def test_openai_completions_with_valid_access_token(
     assert json_data["model"] == "completions"
 
 
-@patch("mlflow.deployments.server.app.get_provider")
+@patch("mlflow.gateway.app.get_provider")
 @patch(
     "jupyterhub_ai_gateway.client.httpx.AsyncClient.get",
     return_value=httpx.Response(

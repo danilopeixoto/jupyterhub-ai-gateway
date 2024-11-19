@@ -3,11 +3,7 @@ Gateway router module.
 """
 
 from fastapi import APIRouter, Security
-from mlflow.deployments.server.app import (
-    Limiter,
-    _load_route_config,
-    create_app_from_config,
-)
+from mlflow.gateway.app import Limiter, _load_route_config, create_app_from_config
 
 from ..constants import gateway_routes
 from ..security import get_current_user
@@ -45,9 +41,9 @@ def create_router(config_path: str) -> APIRouter:
 
             if matches_path and matches_methods:
                 router.add_api_route(
-                    route.path,
-                    route.endpoint,
-                    methods=route.methods,
+                    route.path,  # type: ignore
+                    route.endpoint,  # type: ignore
+                    methods=route.methods,  # type: ignore
                 )
 
     return router

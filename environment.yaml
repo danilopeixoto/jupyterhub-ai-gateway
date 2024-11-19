@@ -3,7 +3,7 @@ channels:
   - defaults
 dependencies:
   - python=3.10.0
-  - jupyterhub>=4.0.0
+  - jupyterhub>=5.0.0
   - jupyterlab
   - notebook
   - pip
